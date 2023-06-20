@@ -43,6 +43,7 @@ require('packer').startup(function()
   use 'sbdchd/neoformat'
   use 'jodosha/vim-godebug'
   use 'rose-pine/neovim'
+  use {'ms-jpq/chadtree', run = 'python3 -m chadtree deps', branch = 'chad'}
 end)
 
 vim.cmd [[
@@ -65,7 +66,6 @@ set shiftwidth=2
 set expandtab
 set cursorline
 au FocusLost * silent! wa
-let mapleader=" "
 set nowrap
 syntax enable
 set autowriteall
@@ -75,8 +75,7 @@ vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gd', ':LspDefinition <cr>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gk', ':LspTypeDefinition <cr>', {noremap = true})
 vim.api.nvim_set_keymap('i', '<c-space>', '<Plug>(asyncomplete_force_refresh)', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>w', ':wall <cr>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>k', ':LspHover <cr>', {noremap = true})
+vim.api.nvim_set_keymap('n', 'gk', ':LspHover <cr>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>u', ':LspReferences <cr>', {noremap = true})
 
 
@@ -140,14 +139,14 @@ vim.cmd('highlight ALEError ctermbg=none gui=underline guisp=red')
 vim.opt.guifont = "DroidSansMono Nerd Font:h11"
 
 -- mappings
-vim.api.nvim_set_keymap('n', '<leader>ff', '<cmd>Telescope find_files<cr>', {})
+vim.api.nvim_set_keymap('n', 'gf', '<cmd>Telescope find_files<cr>', {})
 vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', {})
-vim.api.nvim_set_keymap('n', '<leader>ko', '<cmd>Startify<cr>', {})
+vim.api.nvim_set_keymap('n', '<space>ko', '<cmd>Startify<cr>', {})
 vim.api.nvim_set_keymap('n', '<Tab><Tab>', '<cmd>Telescope buffers<cr>', {})
 vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Telescope find_files<CR>', {})
-vim.api.nvim_set_keymap('n', '<silent><c-t>', '<Cmd>exe v:count1 . "ToggleTerm"<CR>', {})
-vim.api.nvim_set_keymap('n', '<leader>l', ':wall<cr>', {})
-vim.api.nvim_set_keymap('n', '<buffer> gS', '<plug>(lsp-workspace-symbol-search)', {})
+vim.api.nvim_set_keymap('n', '<space>l', ':wall<cr>', {})
+vim.api.nvim_set_keymap('n', '<C-n>', ':CHADopen<cr>', {})
+vim.api.nvim_set_keymap('n', 'gs', '<plug>(lsp-workspace-symbol-search)', {})
 
 -- global variables
 vim.g.airline = {
@@ -225,7 +224,7 @@ vim.api.nvim_exec([[
 ]], false)
 
 require("toggleterm").setup{
-  open_mapping = [[<leader>c]],
+  open_mapping = [[<c-t>]],
   start_in_insert = true,
   insert_mappings = true,
   terminal_mappings = true,
