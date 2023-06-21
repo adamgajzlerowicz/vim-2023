@@ -8,7 +8,7 @@ end
 
 require('packer').startup(function()
   use 'mhinz/vim-startify'
-  use 'morhetz/gruvbox'
+  use 'gruvbox-community/gruvbox'
   use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
   use 'junegunn/fzf.vim'
   use 'tpope/vim-fugitive'
@@ -43,7 +43,8 @@ require('packer').startup(function()
   use 'sbdchd/neoformat'
   use 'jodosha/vim-godebug'
   use 'rose-pine/neovim'
-  use {'ms-jpq/chadtree', run = 'python3 -m chadtree deps', branch = 'chad'}
+  use {'ms-jpq/chadtree', run = 'python3 -m chadtree deps'}
+  use 'junegunn/goyo.vim'
 end)
 
 vim.cmd [[
@@ -77,6 +78,7 @@ vim.api.nvim_set_keymap('n', 'gk', ':LspTypeDefinition <cr>', {noremap = true})
 vim.api.nvim_set_keymap('i', '<c-space>', '<Plug>(asyncomplete_force_refresh)', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gk', ':LspHover <cr>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>u', ':LspReferences <cr>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<space>jj', ':Goyo <cr>', {noremap = true})
 
 
 require('telescope')
@@ -173,6 +175,7 @@ vim.g.startify_lists = {
 vim.g.startify_bookmarks = {
   {agilix = '~/projects/agilix'},
   {vim_config = '~/.config/nvim/init.lua'},
+  {console = '~/projects/cmp-main'},
 }
 
 vim.g.startify_session_persistence = 1
@@ -211,7 +214,7 @@ vim.api.nvim_set_keymap('v', '<C-J>', '<Esc>:call Saving_scroll("gv1<C-V><C-D>")
 vim.api.nvim_set_keymap('n', '<C-K>', ':call Saving_scroll("1<C-V><C-U>")<CR>', {noremap = true})
 vim.api.nvim_set_keymap('v', '<C-K>', '<Esc>:call Saving_scroll("gv1<C-V><C-U>")<CR>', {noremap = true})
 
-vim.cmd('colorscheme rose-pine')
+vim.cmd('colorscheme gruvbox')
 
 -- Keymaps for moving between windows
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', {noremap = true})
@@ -246,4 +249,8 @@ vim.cmd [[
     autocmd BufWritePost ~/.config/nvim/init.lua source %
   augroup END
 ]]
+
+vim.g.goyo_linenr = 1
+vim.g.goyo_width = 150
+vim.g.goyo_height = '100%'
 
