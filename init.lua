@@ -18,11 +18,11 @@ require('packer').startup(function()
   use 'mhinz/vim-janah'
   use 'dense-analysis/ale'
   use 'preservim/nerdtree'
-  use 'prabirshrestha/vim-lsp'
-  use 'mattn/vim-lsp-settings'
+  -- use 'prabirshrestha/vim-lsp'
+  -- use 'prabirshrestha/asyncomplete-lsp.vim'
+  -- use 'mattn/vim-lsp-settings'
   use 'prabirshrestha/asyncomplete.vim'
   use 'prabirshrestha/asyncomplete-tscompletejob.vim'
-  use 'prabirshrestha/asyncomplete-lsp.vim'
   use 'prabirshrestha/async.vim'
   use 'runoshun/tscompletejob'
   use 'ryanoasis/vim-devicons'
@@ -45,7 +45,13 @@ require('packer').startup(function()
   use 'rose-pine/neovim'
   use {'ms-jpq/chadtree', run = 'python3 -m chadtree deps'}
   use 'junegunn/goyo.vim'
+  use 'neovim/nvim-lspconfig'
 end)
+
+local lspconfig = require('lspconfig')
+lspconfig.pyright.setup {}
+lspconfig.tsserver.setup {}
+
 
 vim.cmd [[
 set encoding=UTF-8
@@ -77,7 +83,8 @@ vim.api.nvim_set_keymap('n', 'gd', ':LspDefinition <cr>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gk', ':LspTypeDefinition <cr>', {noremap = true})
 vim.api.nvim_set_keymap('i', '<c-space>', '<Plug>(asyncomplete_force_refresh)', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gk', ':LspHover <cr>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>u', ':LspReferences <cr>', {noremap = true})
+-- vim.api.nvim_set_keymap('n', 'gu', ':LspReferences <cr>', {noremap = true})
+-- vim.api.nvim_set_keymap('n', '<leader>r', ':lua vim.lsp.buf.references({ includeDeclaration = false })<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<space>jj', ':Goyo <cr>', {noremap = true})
 
 
@@ -88,9 +95,14 @@ require('telescope')
       hidden = true
     }
   },
-  defaults = { file_ignore_patterns = {"node_modules", "build"} },
+  defaults = { 
+    file_ignore_patterns = {"node_modules", "build", ".git"} , layout_config = {
+      preview_width = 0.6,
+      },
+    },
   extensions = {
-  project = {} }
+    project = {}
+  },
 }
 
 require'telescope'.load_extension('project')
@@ -137,8 +149,6 @@ vim.g.ale_lint_on_text_changed = 0
 vim.g.ale_lint_on_enter = 0
 vim.cmd('highlight ALEError ctermbg=none gui=underline guisp=red')
 
--- set guifont
-vim.opt.guifont = "DroidSansMono Nerd Font:h11"
 
 -- mappings
 vim.api.nvim_set_keymap('n', 'gf', '<cmd>Telescope find_files<cr>', {})
@@ -147,8 +157,9 @@ vim.api.nvim_set_keymap('n', '<space>ko', '<cmd>Startify<cr>', {})
 vim.api.nvim_set_keymap('n', '<Tab><Tab>', '<cmd>Telescope buffers<cr>', {})
 vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Telescope find_files<CR>', {})
 vim.api.nvim_set_keymap('n', '<space>l', ':wall<cr>', {})
-vim.api.nvim_set_keymap('n', '<C-n>', ':CHADopen<cr>', {})
+vim.api.nvim_set_keymap('n', '<S-Tab>', ':CHADopen --always-focus <cr>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'gs', '<plug>(lsp-workspace-symbol-search)', {})
+vim.api.nvim_set_keymap('v', '<space>y', '"+y', {})
 
 -- global variables
 vim.g.airline = {
@@ -258,4 +269,13 @@ vim.g.goyo_height = '100%'
 vim.cmd('autocmd TermClose * Goyo')
 
        
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
+    vim.keymap.set('n', 'gu', vim.lsp.buf.references, { })
+
+
+  --vim.api.nvim_set_keymap('n', '<leader>r', ':lua vim.lsp.buf.references({ includeDeclaration = false })<CR>', {noremap = true, silent = true})
+  end,
+})
 
