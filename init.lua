@@ -83,15 +83,15 @@ vim.api.nvim_set_keymap('n', '<space>jj', ':Goyo <cr>', {noremap = true})
 
 require('telescope')
   .setup{
-    pickers = {
-      find_files = {
-        hidden = true
-      }
-    },
-    defaults = { file_ignore_patterns = {"node_modules", "build"} },
-    extensions = {
-      project = {} }
-  }
+  pickers = {
+    find_files = {
+      hidden = true
+    }
+  },
+  defaults = { file_ignore_patterns = {"node_modules", "build"} },
+  extensions = {
+  project = {} }
+}
 
 require'telescope'.load_extension('project')
 
@@ -112,18 +112,18 @@ require'nvim-treesitter.configs'.setup {
 
 
 -- let g:ale_fixers = {
---  \ 'typescript': ['eslint'],
---  \ 'javascript': ['eslint'],
---  \ 'typescriptreact': ['eslint'],
---  \ 'go': ['gofumpt', 'goimports', 'golines'],
+  --  \ 'typescript': ['eslint'],
+  --  \ 'javascript': ['eslint'],
+  --  \ 'typescriptreact': ['eslint'],
+  --  \ 'go': ['gofumpt', 'goimports', 'golines'],
 --  \ }
 
 
 -- let g:ale_linters = {
---  \ 'typescript': ['eslint'],
---  \ 'javascript': ['eslint'],
---  \ 'typescriptreact': ['eslint'],
---  \ 'go': ['gofumpt', 'goimports', 'golines', 'golangci-lint'],
+  --  \ 'typescript': ['eslint'],
+  --  \ 'javascript': ['eslint'],
+  --  \ 'typescriptreact': ['eslint'],
+  --  \ 'go': ['gofumpt', 'goimports', 'golines', 'golangci-lint'],
 --  \ }
 
 
@@ -191,22 +191,22 @@ vim.api.nvim_exec([[
   autocmd BufWritePre *.js Neoformat
   autocmd BufWritePre *.ts Neoformat
   autocmd BufWritePre *.tsx Neoformat
-]], false)
+  ]], false)
 
 -- Neoformat
 vim.g.neoformat_try_node_exe = 1
 vim.cmd [[
-  autocmd BufWritePre *.js Neoformat
-  autocmd BufWritePre *.ts Neoformat
-  autocmd BufWritePre *.tsx Neoformat
+autocmd BufWritePre *.js Neoformat
+autocmd BufWritePre *.ts Neoformat
+autocmd BufWritePre *.tsx Neoformat
 ]]
 
 -- Saving scroll
 vim.cmd [[
-  function! Saving_scroll(cmd)
-    let save_scroll = &scroll
-    execute 'normal! ' . a:cmd
-    let &scroll = save_scroll
+function! Saving_scroll(cmd)
+  let save_scroll = &scroll
+  execute 'normal! ' . a:cmd
+  let &scroll = save_scroll
   endfunction
 ]]
 vim.api.nvim_set_keymap('n', '<C-J>', ':call Saving_scroll("1<C-V><C-D>")<CR>', {noremap = true})
@@ -224,14 +224,14 @@ vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {noremap = true})
 
 vim.api.nvim_exec([[
   autocmd BufEnter * normal zz
-]], false)
+  ]], false)
 
 require("toggleterm").setup{
   open_mapping = [[<c-t>]],
   start_in_insert = true,
   insert_mappings = true,
   terminal_mappings = true,
-  direction = "vertical",
+  direction = "float",
   size = function(term)
     if term.direction == "vertical" then
       return vim.o.columns * 0.5
@@ -239,18 +239,23 @@ require("toggleterm").setup{
   end,
 }
 
+
 vim.cmd [[
   autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
 ]]
 
 vim.cmd [[
   augroup AutoReload
-    autocmd!
-    autocmd BufWritePost ~/.config/nvim/init.lua source %
+  autocmd!
+  autocmd BufWritePost ~/.config/nvim/init.lua source %
   augroup END
 ]]
 
 vim.g.goyo_linenr = 1
 vim.g.goyo_width = 150
 vim.g.goyo_height = '100%'
+
+vim.cmd('autocmd TermClose * Goyo')
+
+       
 
