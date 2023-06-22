@@ -46,6 +46,7 @@ require('packer').startup(function()
   use {'ms-jpq/chadtree', run = 'python3 -m chadtree deps'}
   use 'junegunn/goyo.vim'
   use 'neovim/nvim-lspconfig'
+  use 'neovim/'
 end)
 
 local lspconfig = require('lspconfig')
@@ -54,28 +55,28 @@ lspconfig.tsserver.setup {}
 
 
 vim.cmd [[
-set encoding=UTF-8
-syntax on
-set ignorecase
-set smartcase
-set hidden
-set number
-set nobackup
-set nospell
-set nowritebackup
-set smarttab
-set nocompatible
-set cindent
-set tabstop=2
-set softtabstop=2
-set noswapfile
-set shiftwidth=2
-set expandtab
-set cursorline
-au FocusLost * silent! wa
-set nowrap
-syntax enable
-set autowriteall
+  set encoding=UTF-8
+  syntax on
+  set ignorecase
+  set smartcase
+  set hidden
+  set number
+  set nobackup
+  set nospell
+  set nowritebackup
+  set smarttab
+  set nocompatible
+  set cindent
+  set tabstop=2
+  set softtabstop=2
+  set noswapfile
+  set shiftwidth=2
+  set expandtab
+  set cursorline
+  au FocusLost * silent! wa
+  set nowrap
+  syntax enable
+  set autowriteall
 ]]
 
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
@@ -83,8 +84,6 @@ vim.api.nvim_set_keymap('n', 'gd', ':LspDefinition <cr>', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gk', ':LspTypeDefinition <cr>', {noremap = true})
 vim.api.nvim_set_keymap('i', '<c-space>', '<Plug>(asyncomplete_force_refresh)', {noremap = true})
 vim.api.nvim_set_keymap('n', 'gk', ':LspHover <cr>', {noremap = true})
--- vim.api.nvim_set_keymap('n', 'gu', ':LspReferences <cr>', {noremap = true})
--- vim.api.nvim_set_keymap('n', '<leader>r', ':lua vim.lsp.buf.references({ includeDeclaration = false })<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<space>jj', ':Goyo <cr>', {noremap = true})
 
 
@@ -273,9 +272,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
     vim.keymap.set('n', 'gu', vim.lsp.buf.references, { })
-
-
-  --vim.api.nvim_set_keymap('n', '<leader>r', ':lua vim.lsp.buf.references({ includeDeclaration = false })<CR>', {noremap = true, silent = true})
+    vim.keymap.set('n', 'gd', vim.lsp.buf.implementation, { })
   end,
 })
+
+vim.api.nvim_set_keymap('n', 'n', 'nzz', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<ESC>', '<ESC>:cclose<cr>', {noremap = true, silent = true})
 
