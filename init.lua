@@ -11,20 +11,10 @@ require('packer').startup(function()
   use 'gruvbox-community/gruvbox'
   use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
   use 'junegunn/fzf.vim'
-  -- use 'tpope/vim-fugitive'
   use 'drmingdrmer/vim-toggle-quickfix'
   use 'airblade/vim-gitgutter'
   use 'editorconfig/editorconfig-vim'
   use 'mhinz/vim-janah'
-  -- use 'dense-analysis/ale'
-  -- use 'preservim/nerdtree'
-  -- use 'prabirshrestha/vim-lsp'
-  -- use 'prabirshrestha/asyncomplete-lsp.vim'
-  -- use 'mattn/vim-lsp-settings'
-  -- use 'prabirshrestha/asyncomplete.vim'
-  -- use 'prabirshrestha/asyncomplete-tscompletejob.vim'
-  -- use 'prabirshrestha/async.vim'
-  -- use 'runoshun/tscompletejob'
   use 'ryanoasis/vim-devicons'
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
   use 'nvim-lua/plenary.nvim'
@@ -33,7 +23,6 @@ require('packer').startup(function()
   use 'vim-airline/vim-airline-themes'
   -- use {'fatih/vim-go', run = ':GoUpdateBinaries' }
   use 'jacoborus/tender.vim'
-  -- use 'doums/darcula'
   use 'nvim-telescope/telescope-project.nvim'
   use 'akinsho/toggleterm.nvim'
   use 'joshdick/onedark.vim'
@@ -44,13 +33,16 @@ require('packer').startup(function()
   use {'ms-jpq/chadtree', run = 'python3 -m chadtree deps'}
   use 'junegunn/goyo.vim'
   use 'neovim/nvim-lspconfig'
-  -- use 'neovim'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/vim-vsnip'
 end)
 
-local lspconfig = require('lspconfig')
-lspconfig.pyright.setup {}
-lspconfig.tsserver.setup {}
-
+require("cmp-config")
 
 vim.cmd [[
   set encoding=UTF-8
@@ -117,36 +109,6 @@ require'nvim-treesitter.configs'.setup {
 }
 
 
-
-
-
--- let g:ale_fixers = {
-  --  \ 'typescript': ['eslint'],
-  --  \ 'javascript': ['eslint'],
-  --  \ 'typescriptreact': ['eslint'],
-  --  \ 'go': ['gofumpt', 'goimports', 'golines'],
---  \ }
-
-
--- let g:ale_linters = {
-  --  \ 'typescript': ['eslint'],
-  --  \ 'javascript': ['eslint'],
-  --  \ 'typescriptreact': ['eslint'],
-  --  \ 'go': ['gofumpt', 'goimports', 'golines', 'golangci-lint'],
---  \ }
-
-
-vim.g.ale_sign_error = '>>'
-vim.g.ale_sign_warning = '--'
-vim.g.ale_fix_on_save = 1
-vim.g.ale_javascript_eslint_executable = 'eslint_d'
-vim.g.ale_javascript_eslint_use_global = 0
-vim.g.ale_lint_on_save = 1
-vim.g.ale_lint_on_text_changed = 0
-vim.g.ale_lint_on_enter = 0
-vim.cmd('highlight ALEError ctermbg=none gui=underline guisp=red')
-
-
 -- mappings
 vim.api.nvim_set_keymap('n', 'gf', '<cmd>Telescope find_files<cr>', {})
 vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', {})
@@ -162,7 +124,6 @@ vim.api.nvim_set_keymap('v', '<space>y', '"+y', {})
 vim.g.airline = {
   extensions = {
     tabline = {enabled = 1},
-    ale = {enabled = 1},
   }
 }
 
@@ -171,8 +132,6 @@ vim.g.go_highlight_methods = 1
 vim.g.go_highlight_functions = 1
 vim.g.go_highlight_operators = 1
 vim.g.go_highlight_build_constraints = 1
-vim.g.ale_go_golangci_lint_options = "-c ~/projects/cmp-main/.golangci.yml"
-vim.g.ale_go_golangci_lint_package = 1
 
 vim.g.startify_lists = {
   {type = 'sessions', header = {'   Sessions'}},
@@ -216,7 +175,11 @@ vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {noremap = true})
 
 vim.api.nvim_exec([[
   autocmd BufEnter * normal zz
-  ]], false)
+  autocmd CmdlineLeave / normal! zz
+  autocmd CmdlineLeave ? normal! zz
+  autocmd CmdlineLeave N normal! zz
+  autocmd CmdlineLeave n normal! zz
+]], false)
 
 require("toggleterm").setup{
   open_mapping = [[<c-t>]],
@@ -254,7 +217,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
     vim.keymap.set('n', 'gu', vim.lsp.buf.references, { })
-    vim.keymap.set('n', 'gd', vim.lsp.buf.implementation, { })
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { })
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { })
   end,
 })
 
@@ -276,6 +240,4 @@ vim.cmd([[
 ]])
 
 vim.g.neoformat_enabled_typescript = {'eslint_d'}
-
-
 
