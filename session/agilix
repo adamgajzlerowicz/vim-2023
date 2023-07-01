@@ -19,12 +19,10 @@ badd +28 ~/projects/agilix/packages/web/src/components/flashMessage/listEventNot
 badd +250 ~/projects/agilix/packages/web/src/types/firestore.ts
 badd +96 ~/projects/agilix/packages/web/src/pages/manageRun/index.tsx
 badd +353 ~/projects/agilix/packages/web/src/utils/index.ts
-badd +226 init.lua
 argglobal
 %argdel
-edit init.lua
+edit ~/projects/agilix/packages/web/src/components/flashMessage/listEventNotifications.tsx
 argglobal
-balt ~/projects/agilix/packages/web/src/components/flashMessage/listEventNotifications.tsx
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -35,12 +33,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 226 - ((24 * winheight(0) + 24) / 49)
+let s:l = 28 - ((24 * winheight(0) + 24) / 49)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 226
-normal! 056|
+keepjumps 28
+normal! 025|
 lcd ~/.config/nvim
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
@@ -55,6 +53,7 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
+nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
