@@ -11,29 +11,29 @@ require('packer').startup(function()
   use 'gruvbox-community/gruvbox'
   use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
   use 'junegunn/fzf.vim'
-  use 'tpope/vim-fugitive'
+  -- use 'tpope/vim-fugitive'
   use 'drmingdrmer/vim-toggle-quickfix'
   use 'airblade/vim-gitgutter'
   use 'editorconfig/editorconfig-vim'
   use 'mhinz/vim-janah'
-  use 'dense-analysis/ale'
-  use 'preservim/nerdtree'
+  -- use 'dense-analysis/ale'
+  -- use 'preservim/nerdtree'
   -- use 'prabirshrestha/vim-lsp'
   -- use 'prabirshrestha/asyncomplete-lsp.vim'
   -- use 'mattn/vim-lsp-settings'
-  use 'prabirshrestha/asyncomplete.vim'
-  use 'prabirshrestha/asyncomplete-tscompletejob.vim'
-  use 'prabirshrestha/async.vim'
-  use 'runoshun/tscompletejob'
+  -- use 'prabirshrestha/asyncomplete.vim'
+  -- use 'prabirshrestha/asyncomplete-tscompletejob.vim'
+  -- use 'prabirshrestha/async.vim'
+  -- use 'runoshun/tscompletejob'
   use 'ryanoasis/vim-devicons'
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
   use 'nvim-lua/plenary.nvim'
   use 'nvim-telescope/telescope.nvim'
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
-  use {'fatih/vim-go', run = ':GoUpdateBinaries' }
+  -- use {'fatih/vim-go', run = ':GoUpdateBinaries' }
   use 'jacoborus/tender.vim'
-  use 'doums/darcula'
+  -- use 'doums/darcula'
   use 'nvim-telescope/telescope-project.nvim'
   use 'akinsho/toggleterm.nvim'
   use 'joshdick/onedark.vim'
@@ -41,12 +41,10 @@ require('packer').startup(function()
   use 'liuchengxu/vista.vim'
   use 'tpope/vim-commentary'
   use 'sbdchd/neoformat'
-  use 'jodosha/vim-godebug'
-  use 'rose-pine/neovim'
   use {'ms-jpq/chadtree', run = 'python3 -m chadtree deps'}
   use 'junegunn/goyo.vim'
   use 'neovim/nvim-lspconfig'
-  use 'neovim/'
+  -- use 'neovim'
 end)
 
 local lspconfig = require('lspconfig')
@@ -195,22 +193,6 @@ vim.g.startify_change_to_vcs_root = 1
 vim.g.startify_enable_special = 0
 vim.g.startify_session_dir = '~/.config/nvim/session'
 
-vim.g.neoformat_try_node_exe = 1
-
-vim.api.nvim_exec([[
-  autocmd BufWritePre *.js Neoformat
-  autocmd BufWritePre *.ts Neoformat
-  autocmd BufWritePre *.tsx Neoformat
-  ]], false)
-
--- Neoformat
-vim.g.neoformat_try_node_exe = 1
-vim.cmd [[
-autocmd BufWritePre *.js Neoformat
-autocmd BufWritePre *.ts Neoformat
-autocmd BufWritePre *.tsx Neoformat
-]]
-
 -- Saving scroll
 vim.cmd [[
 function! Saving_scroll(cmd)
@@ -224,7 +206,7 @@ vim.api.nvim_set_keymap('v', '<C-J>', '<Esc>:call Saving_scroll("gv1<C-V><C-D>")
 vim.api.nvim_set_keymap('n', '<C-K>', ':call Saving_scroll("1<C-V><C-U>")<CR>', {noremap = true})
 vim.api.nvim_set_keymap('v', '<C-K>', '<Esc>:call Saving_scroll("gv1<C-V><C-U>")<CR>', {noremap = true})
 
-vim.cmd('colorscheme gruvbox')
+vim.cmd('colorscheme tender')
 
 -- Keymaps for moving between windows
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', {noremap = true})
@@ -278,4 +260,22 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 vim.api.nvim_set_keymap('n', 'n', 'nzz', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<ESC>', '<ESC>:cclose<cr>', {noremap = true, silent = true})
+
+
+-- Neoformat
+
+vim.g.neoformat_try_node_exe = 1
+vim.g.neoformat_run_all_formatters = 1
+
+
+vim.cmd([[
+  augroup fmt
+    autocmd!
+    autocmd BufWritePre * undojoin | Neoformat
+  augroup END
+]])
+
+vim.g.neoformat_enabled_typescript = {'eslint_d'}
+
+
 
