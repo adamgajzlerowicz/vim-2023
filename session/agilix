@@ -13,28 +13,18 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +1 ~/projects/agilix/packages/api/src/main.ts
-badd +15 ~/projects/agilix/packages/agilix/App.tsx
-badd +49 ~/projects/agilix/packages/web/src/components/manageRun/markAsDidNotRun.tsx
-badd +146 ~/projects/agilix/packages/web/src/components/manageRun/run.tsx
-badd +781 ~/projects/agilix/packages/web/src/translations/web-pl.ts
-badd +2870 ~/projects/agilix/packages/web/src/__types__/graphql.ts
-badd +784 ~/projects/agilix/packages/web/src/translations/web-en.ts
-badd +94 ~/projects/agilix/packages/web/src/pages/manageRun/index.tsx
-badd +28 ~/projects/agilix/packages/web/src/components/flashMessage/listEventNotifications.tsx
-badd +130 ~/projects/agilix/packages/web/src/components/flashMessage/notification.tsx
-badd +253 ~/projects/agilix/packages/web/src/types/firestore.ts
-badd +1289 ~/projects/agilix/packages/api/src/competition/competition.resolver.ts
-badd +25 ~/projects/agilix/packages/api/src/competition/list-event-notification-service.ts
+badd +60 ~/projects/agilix/packages/web/src/components/manageRun/run.tsx
 badd +243 ~/projects/agilix/packages/api/node_modules/aws-sdk/clients/cloudsearchdomain.d.ts
-badd +370 ~/projects/agilix/packages/api/src/competition/args.ts
-badd +227 ~/projects/agilix/packages/api/src/competition/competition.models.ts
-badd +1236 ~/projects/agilix/packages/api/src/competition/competition.service.ts
+badd +28 ~/projects/agilix/packages/web/src/components/flashMessage/listEventNotifications.tsx
+badd +250 ~/projects/agilix/packages/web/src/types/firestore.ts
+badd +96 ~/projects/agilix/packages/web/src/pages/manageRun/index.tsx
+badd +353 ~/projects/agilix/packages/web/src/utils/index.ts
+badd +226 init.lua
 argglobal
 %argdel
-edit ~/projects/agilix/packages/web/src/components/flashMessage/listEventNotifications.tsx
+edit init.lua
 argglobal
-balt ~/projects/agilix/packages/web/src/pages/manageRun/index.tsx
+balt ~/projects/agilix/packages/web/src/components/flashMessage/listEventNotifications.tsx
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -45,13 +35,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 28 - ((24 * winheight(0) + 24) / 49)
+let s:l = 226 - ((24 * winheight(0) + 24) / 49)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 28
-normal! 025|
-lcd ~/projects/agilix
+keepjumps 226
+normal! 056|
+lcd ~/.config/nvim
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

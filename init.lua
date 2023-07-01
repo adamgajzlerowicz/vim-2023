@@ -1,5 +1,4 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+local fn = vim.fn local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
   fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
@@ -40,9 +39,10 @@ require('packer').startup(function()
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/vim-vsnip'
+  use 'sainnhe/everforest'
 end)
 
-require("cmp-config")
+require("rawdikk")
 
 vim.cmd [[
   set encoding=UTF-8
@@ -81,10 +81,12 @@ require('telescope')
     }
   },
   defaults = { 
-    file_ignore_patterns = {"node_modules", "build", ".git"} , layout_config = {
-      preview_width = 0.6,
-      },
+    file_ignore_patterns = {"node_modules", "build", ".git"}, 
+    layout_config = {
+      preview_width = 0.5,
+      horizontal = { width = 0.9 }
     },
+  },
   extensions = {
     project = {}
   },
@@ -169,7 +171,7 @@ vim.api.nvim_set_keymap('v', '<C-J>', '<Esc>:call Saving_scroll("gv1<C-V><C-D>")
 vim.api.nvim_set_keymap('n', '<C-K>', ':call Saving_scroll("1<C-V><C-U>")<CR>', {noremap = true})
 vim.api.nvim_set_keymap('v', '<C-K>', '<Esc>:call Saving_scroll("gv1<C-V><C-U>")<CR>', {noremap = true})
 
-vim.cmd('colorscheme tender')
+vim.cmd('colorscheme everforest')
 
 -- Keymaps for moving between windows
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', {noremap = true})
@@ -183,6 +185,7 @@ vim.api.nvim_exec([[
   autocmd CmdlineLeave ? normal! zz
   autocmd CmdlineLeave N normal! zz
   autocmd CmdlineLeave n normal! zz
+
 ]], false)
 
 require("toggleterm").setup{
@@ -220,7 +223,7 @@ vim.cmd('autocmd TermClose * Goyo')
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
-    vim.keymap.set('n', 'gu', vim.lsp.buf.references, { })
+    vim.keymap.set('n', 'gu', require('telescope.builtin').lsp_references, { })
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { })
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { })
   end,
