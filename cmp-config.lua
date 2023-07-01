@@ -1,6 +1,8 @@
 -- Set up nvim-cmp.
 local cmp = require'cmp'
 
+-- vim.g.vsnip_snippet_dir = {'~/.config/nvim/snippets'}
+
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -9,7 +11,7 @@ cmp.setup({
   },
   window = {
     completion = cmp.config.window.bordered(),
-     documentation = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
