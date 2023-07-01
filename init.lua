@@ -70,10 +70,6 @@ vim.cmd [[
 ]]
 
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
-vim.api.nvim_set_keymap('n', 'gd', ':LspDefinition <cr>', {noremap = true})
-vim.api.nvim_set_keymap('n', 'gk', ':LspTypeDefinition <cr>', {noremap = true})
-vim.api.nvim_set_keymap('i', '<c-space>', '<Plug>(asyncomplete_force_refresh)', {noremap = true})
-vim.api.nvim_set_keymap('n', 'gk', ':LspHover <cr>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<space>jj', ':Goyo <cr>', {noremap = true})
 
 
@@ -96,14 +92,21 @@ require('telescope')
 
 require'telescope'.load_extension('project')
 
-local actions = require('telescope.actions')require('telescope').setup{ pickers = { buffers = { sort_lastused = true } } }
+local actions = require('telescope.actions')require('telescope').setup{ 
+  defaults = {
+    mappings = {
+       i = {
+        ['<c-d>'] = require('telescope.actions').delete_buffer,
+      },
+    },
+  },
+  pickers = { buffers = { sort_lastused = true } 
+} }
 
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
-    custom_captures = {
-
-    },
+    custom_captures = { },
     additional_vim_regex_highlighting = false,
   },
 }
@@ -119,6 +122,7 @@ vim.api.nvim_set_keymap('n', '<space>l', ':wall<cr>', {})
 vim.api.nvim_set_keymap('n', '<S-Tab>', ':CHADopen --always-focus <cr>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'gs', '<plug>(lsp-workspace-symbol-search)', {})
 vim.api.nvim_set_keymap('v', '<space>y', '"+y', {})
+
 
 -- global variables
 vim.g.airline = {

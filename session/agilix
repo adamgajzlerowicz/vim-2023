@@ -1,0 +1,70 @@
+let SessionLoad = 1
+let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
+let v:this_session=expand("<sfile>:p")
+silent only
+silent tabonly
+cd ~/.config/nvim
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+let s:shortmess_save = &shortmess
+if &shortmess =~ 'A'
+  set shortmess=aoOA
+else
+  set shortmess=aoO
+endif
+badd +1 ~/projects/agilix/packages/api/src/main.ts
+badd +15 ~/projects/agilix/packages/agilix/App.tsx
+badd +49 ~/projects/agilix/packages/web/src/components/manageRun/markAsDidNotRun.tsx
+badd +146 ~/projects/agilix/packages/web/src/components/manageRun/run.tsx
+badd +781 ~/projects/agilix/packages/web/src/translations/web-pl.ts
+badd +2870 ~/projects/agilix/packages/web/src/__types__/graphql.ts
+badd +784 ~/projects/agilix/packages/web/src/translations/web-en.ts
+badd +94 ~/projects/agilix/packages/web/src/pages/manageRun/index.tsx
+badd +28 ~/projects/agilix/packages/web/src/components/flashMessage/listEventNotifications.tsx
+badd +130 ~/projects/agilix/packages/web/src/components/flashMessage/notification.tsx
+badd +253 ~/projects/agilix/packages/web/src/types/firestore.ts
+badd +1289 ~/projects/agilix/packages/api/src/competition/competition.resolver.ts
+badd +25 ~/projects/agilix/packages/api/src/competition/list-event-notification-service.ts
+badd +243 ~/projects/agilix/packages/api/node_modules/aws-sdk/clients/cloudsearchdomain.d.ts
+badd +370 ~/projects/agilix/packages/api/src/competition/args.ts
+badd +227 ~/projects/agilix/packages/api/src/competition/competition.models.ts
+badd +1236 ~/projects/agilix/packages/api/src/competition/competition.service.ts
+argglobal
+%argdel
+edit ~/projects/agilix/packages/web/src/components/flashMessage/listEventNotifications.tsx
+argglobal
+balt ~/projects/agilix/packages/web/src/pages/manageRun/index.tsx
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 28 - ((24 * winheight(0) + 24) / 49)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 28
+normal! 025|
+lcd ~/projects/agilix
+tabnext 1
+if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20
+let &shortmess = s:shortmess_save
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if filereadable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &g:so = s:so_save | let &g:siso = s:siso_save
+set hlsearch
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :
