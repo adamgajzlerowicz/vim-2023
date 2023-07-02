@@ -40,6 +40,7 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/vim-vsnip'
   use 'sainnhe/everforest'
+  use 'folke/trouble.nvim'
 end)
 
 require("rawdikk")
@@ -224,13 +225,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
     vim.keymap.set('n', 'gu', require('telescope.builtin').lsp_references, { })
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { })
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { })
+    vim.keymap.set('n', 'gi', require('telescope.builtin').lsp_implementations, { })
+    vim.keymap.set('n', 'gd', require('telescope.builtin').lsp_definitions, { })
   end,
 })
 
 vim.api.nvim_set_keymap('n', 'n', 'nzz', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<ESC>', '<ESC>:cclose<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<ESC>', ':nohl<cr>', {noremap = true, silent = true})
 
 
 -- Neoformat
@@ -248,3 +250,5 @@ vim.cmd([[
 
 vim.g.neoformat_enabled_typescript = {'eslint_d'}
 
+local chadtree_settings = { ["options.close_on_open"] = true }
+vim.api.nvim_set_var("chadtree_settings", chadtree_settings)

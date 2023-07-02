@@ -13,16 +13,15 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +60 ~/projects/agilix/packages/web/src/components/manageRun/run.tsx
-badd +243 ~/projects/agilix/packages/api/node_modules/aws-sdk/clients/cloudsearchdomain.d.ts
-badd +28 ~/projects/agilix/packages/web/src/components/flashMessage/listEventNotifications.tsx
-badd +250 ~/projects/agilix/packages/web/src/types/firestore.ts
-badd +96 ~/projects/agilix/packages/web/src/pages/manageRun/index.tsx
-badd +353 ~/projects/agilix/packages/web/src/utils/index.ts
+badd +1 ~/projects/agilix
+badd +53 ~/projects/agilix/packages/web/src/components/manageRun/run.tsx
+badd +46 ~/projects/agilix/packages/web/src/components/flashMessage/listEventNotifications.tsx
+badd +295 ~/projects/agilix/packages/web/src/translations/web-en.ts
 argglobal
 %argdel
-edit ~/projects/agilix/packages/web/src/components/flashMessage/listEventNotifications.tsx
+edit ~/projects/agilix/packages/web/src/components/manageRun/run.tsx
 argglobal
+balt ~/projects/agilix/packages/web/src/translations/web-en.ts
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -33,13 +32,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 28 - ((24 * winheight(0) + 24) / 49)
+let s:l = 53 - ((24 * winheight(0) + 24) / 49)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 28
-normal! 025|
-lcd ~/.config/nvim
+keepjumps 53
+normal! 0
+lcd ~/projects/agilix
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
