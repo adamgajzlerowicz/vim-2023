@@ -185,13 +185,6 @@ vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {noremap = true})
 
-vim.api.nvim_exec([[
-  autocmd BufEnter * normal zz
-  autocmd CmdlineLeave / normal! zz
-  autocmd CmdlineLeave ? normal! zz
-  autocmd CmdlineLeave N normal! zz
-  autocmd CmdlineLeave n normal! zz
-]], false)
 
 require("toggleterm").setup{
   open_mapping = [[<c-t>]],

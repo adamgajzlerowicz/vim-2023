@@ -4,6 +4,11 @@ local cmp = require'cmp'
 -- vim.g.vsnip_snippet_dir = {'~/.config/nvim/snippets'}
 
 cmp.setup({
+  completion = {
+    autocomplete = {
+      0
+    }
+  },
   snippet = {
     expand = function(args)
       vim.fn["vsnip#anonymous"](args.body)
