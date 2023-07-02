@@ -41,9 +41,13 @@ require('packer').startup(function()
   use 'hrsh7th/vim-vsnip'
   use 'sainnhe/everforest'
   use 'folke/trouble.nvim'
+  use 'github/copilot.vim'
+  use 'williamboman/mason.nvim'
 end)
 
 require("rawdikk")
+
+require("mason").setup()
 
 vim.cmd [[
   set encoding=UTF-8
@@ -69,6 +73,7 @@ vim.cmd [[
   syntax enable
   set autowriteall
 ]]
+
 
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<space>jj', ':Goyo <cr>', {noremap = true})
@@ -186,7 +191,6 @@ vim.api.nvim_exec([[
   autocmd CmdlineLeave ? normal! zz
   autocmd CmdlineLeave N normal! zz
   autocmd CmdlineLeave n normal! zz
-
 ]], false)
 
 require("toggleterm").setup{
