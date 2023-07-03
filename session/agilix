@@ -13,20 +13,35 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +9 ~/projects/agilix/packages/web/src/pages/printDocuments/index.tsx
+badd +56 ~/projects/agilix/packages/web/src/pages/printDocuments/index.tsx
 badd +31 ~/projects/agilix/packages/agitest/cypress/e2e/printLists.cy.ts
-badd +46 ~/projects/agilix/packages/web/src/constants/routes.ts
+badd +67 ~/projects/agilix/packages/web/src/constants/routes.ts
 badd +8 ~/projects/agilix/package.json
-badd +10 ~/projects/agilix/packages/agitest/cypress.config.ts
+badd +1 ~/projects/agilix/packages/agitest/cypress.config.ts
 badd +36 ~/projects/agilix/packages/agitest/cypress/e2e/competitions.cy.ts
 badd +58 ~/projects/agilix/packages/web/src/pages/myCompetitions/index.tsx
 badd +27 ~/projects/agilix/packages/web/src/pages/myCompetitions/resultDetails.tsx
-badd +61 ~/projects/agilix/packages/web/src/pages/myCompetitions/competitionComponent.tsx
+badd +95 ~/projects/agilix/packages/web/src/pages/myCompetitions/competitionComponent.tsx
+badd +13 ~/projects/agilix/.github/workflows/deploy-api.yml
+badd +8 ~/projects/agilix/.github/workflows/deploy-web.yml
+badd +90 ~/projects/agilix/packages/web/src/components/useNavigation.tsx
+badd +79 ~/projects/agilix/packages/web/src/pages/ringBoard/index.tsx
+badd +48 ~/projects/agilix/packages/web/src/pages/ringBoard/currentRun.tsx
+badd +72 ~/projects/agilix/packages/web/src/pages/ringBoard/runner.tsx
+badd +64 ~/projects/agilix/packages/web/src/pages/printAttendanceList/index.tsx
+badd +125 ~/projects/agilix/packages/web/src/components/manageRun/run.tsx
+badd +1288 ~/projects/agilix/packages/api/src/competition/competition.resolver.ts
+badd +27 ~/projects/agilix/packages/api/src/competition/list-event-notification-service.ts
+badd +367 ~/projects/agilix/packages/api/src/competition/args.ts
+badd +68 ~/projects/agilix/packages/web/src/components/flashMessage/listEventNotifications.tsx
+badd +131 ~/projects/agilix/packages/web/src/components/flashMessage/notification.tsx
+badd +49 ~/projects/agilix/packages/agitest/cypress/e2e/auth.cy.ts
+badd +230 ~/projects/agilix/packages/agitest/cypress/utils/utils.ts
 argglobal
 %argdel
-edit ~/projects/agilix/packages/web/src/pages/myCompetitions/competitionComponent.tsx
+edit ~/projects/agilix/packages/agitest/cypress/e2e/auth.cy.ts
 argglobal
-balt ~/projects/agilix/packages/web/src/pages/myCompetitions/resultDetails.tsx
+balt ~/projects/agilix/packages/agitest/cypress/utils/utils.ts
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -37,12 +52,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 61 - ((48 * winheight(0) + 24) / 49)
+let s:l = 48 - ((1 * winheight(0) + 38) / 77)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 61
-normal! 0
+keepjumps 48
+normal! 05|
 lcd ~/projects/agilix
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

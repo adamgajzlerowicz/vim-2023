@@ -43,6 +43,7 @@ require('packer').startup(function()
   use 'folke/trouble.nvim'
   use 'github/copilot.vim'
   use 'williamboman/mason.nvim'
+  use 'NLKNguyen/papercolor-theme'
 end)
 
 require("rawdikk")
@@ -72,6 +73,7 @@ vim.cmd [[
   set nowrap
   syntax enable
   set autowriteall
+  set background=light
 ]]
 
 
@@ -83,22 +85,17 @@ require('telescope')
   .setup{
   pickers = {
     find_files = {
-      hidden = true
+      hidden = false
     }
   },
   defaults = { 
-    file_ignore_patterns = {"node_modules", "build", ".git"}, 
+    file_ignore_patterns = {"node_modules", "dist", "build"}, 
     layout_config = {
       preview_width = 0.5,
       horizontal = { width = 0.9 }
     },
   },
-  extensions = {
-    project = {}
-  },
 }
-
-require'telescope'.load_extension('project')
 
 local actions = require('telescope.actions')require('telescope').setup{ 
   defaults = {
@@ -121,8 +118,7 @@ require'nvim-treesitter.configs'.setup {
 
 
 -- mappings
-vim.api.nvim_set_keymap('n', 'gf', '<cmd>Telescope find_files<cr>', {})
-vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', {})
+vim.api.nvim_set_keymap('n', '<space>ff', '<cmd>Telescope live_grep<cr>', {})
 vim.api.nvim_set_keymap('n', '<space>ko', '<cmd>Startify<cr>', {})
 vim.api.nvim_set_keymap('n', '<Tab><Tab>', '<cmd>Telescope buffers<cr>', {})
 vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Telescope find_files<CR>', {})
@@ -177,7 +173,8 @@ vim.api.nvim_set_keymap('v', '<C-J>', '<Esc>:call Saving_scroll("gv1<C-V><C-D>")
 vim.api.nvim_set_keymap('n', '<C-K>', ':call Saving_scroll("1<C-V><C-U>")<CR>', {noremap = true})
 vim.api.nvim_set_keymap('v', '<C-K>', '<Esc>:call Saving_scroll("gv1<C-V><C-U>")<CR>', {noremap = true})
 
-vim.cmd('colorscheme everforest')
+-- vim.cmd('colorscheme everforest')
+vim.cmd('colorscheme PaperColor')
 
 -- Keymaps for moving between windows
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', {noremap = true})
