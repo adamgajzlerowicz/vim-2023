@@ -95,8 +95,7 @@ require('telescope')
     }
   },
   defaults = { 
-    file_ignore_patterns = {"node_modules"}, 
-    layout_strategy = "vertical",
+    file_ignore_patterns = {"node_modules", "__generated__"}, 
     layout_config = {
       preview_width = 0.5,
       vertical = {
