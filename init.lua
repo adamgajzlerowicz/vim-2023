@@ -20,7 +20,7 @@ require('packer').startup(function()
   use 'nvim-telescope/telescope.nvim'
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
-  -- use {'fatih/vim-go', run = ':GoUpdateBinaries' }
+  use {'fatih/vim-go', run = ':GoUpdateBinaries' }
   use 'jacoborus/tender.vim'
   use 'nvim-telescope/telescope-project.nvim'
   use 'akinsho/toggleterm.nvim'
@@ -44,6 +44,10 @@ require('packer').startup(function()
   use 'github/copilot.vim'
   use 'williamboman/mason.nvim'
   use 'NLKNguyen/papercolor-theme'
+  use 'ray-x/go.nvim'
+  use 'ray-x/guihua.lua' -- recommended if need floating window support
+  use 'neovim/nvim-lspconfig'
+  use 'nvim-treesitter/nvim-treesitter'
 end)
 
 require("rawdikk")
@@ -81,6 +85,8 @@ vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<space>jj', ':Goyo <cr>', {noremap = true})
 
 
+require'lspconfig'.gopls.setup{}
+
 require('telescope')
   .setup{
   pickers = {
@@ -89,10 +95,16 @@ require('telescope')
     }
   },
   defaults = { 
-    file_ignore_patterns = {"node_modules", "dist", "build"}, 
+    file_ignore_patterns = {"node_modules"}, 
+    layout_strategy = "vertical",
     layout_config = {
       preview_width = 0.5,
-      horizontal = { width = 0.9 }
+      vertical = {
+        preview_height = 0.5,
+        prompt_position = 'bottom',
+      },
+      width = 0.9,
+      height = 0.9,
     },
   },
 }
@@ -246,3 +258,22 @@ vim.g.neoformat_enabled_typescript = {'eslint_d'}
 
 local chadtree_settings = { ["options.close_on_open"] = true }
 vim.api.nvim_set_var("chadtree_settings", chadtree_settings)
+
+
+
+
+
+
+-- Go
+local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+   require('go.format').goimport()
+  end,
+  group = format_sync_grp,
+})
+
+require('go').setup()
+
+
