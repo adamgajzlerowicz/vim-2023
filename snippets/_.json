@@ -1,7 +1,0 @@
-{
-  "cl": {
-    "prefix": "cl",
-    "body": ["console.log($1);"],
-    "description": "Inserts a console.log statement"
-  }
-}

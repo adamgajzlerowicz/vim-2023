@@ -1,7 +1,6 @@
--- Set up nvim-cmp.
 local cmp = require'cmp'
 
--- vim.g.vsnip_snippet_dir = {'~/.config/nvim/snippets'}
+-- vim.g.vsnip_snippet_dir = { path = '~/.config/nvim/snippets' }
 
 cmp.setup({
   completion = {
