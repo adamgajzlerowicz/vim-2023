@@ -89,13 +89,6 @@ vim.api.nvim_set_keymap('n', '<space>jj', ':Goyo <cr>', {noremap = true})
 require'lspconfig'.gopls.setup{}
 
 
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,
-    custom_captures = { },
-    additional_vim_regex_highlighting = false,
-  },
-}
 
 
 -- mappings

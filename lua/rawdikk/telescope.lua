@@ -1,11 +1,15 @@
 require('telescope')
   .setup{
   pickers = {
-    find_files = {
-      hidden = false
-    }
+    buffers = { sort_lastused = true },
+    find_files = { hidden = false }
   },
   defaults = { 
+    mappings = {
+       i = {
+        ['<c-d>'] = require('telescope.actions').delete_buffer,
+      },
+    },
     file_ignore_patterns = {"node_modules", "__generated__"}, 
     layout_config = {
       preview_width = 0.5,
@@ -19,13 +23,3 @@ require('telescope')
   },
 }
 
-local actions = require('telescope.actions')require('telescope').setup{ 
-  defaults = {
-    mappings = {
-       i = {
-        ['<c-d>'] = require('telescope.actions').delete_buffer,
-      },
-    },
-  },
-  pickers = { buffers = { sort_lastused = true } 
-} }
