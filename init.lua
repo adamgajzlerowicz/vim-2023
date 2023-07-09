@@ -49,6 +49,7 @@ require('packer').startup(function()
   use 'neovim/nvim-lspconfig'
   use 'nvim-treesitter/nvim-treesitter'
   use {'axkirillov/easypick.nvim', requires = 'nvim-telescope/telescope.nvim'}
+  use 'jose-elias-alvarez/null-ls.nvim'
 end)
 
 require("rawdikk")
