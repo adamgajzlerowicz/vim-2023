@@ -23,3 +23,19 @@ require('telescope')
   },
 }
 
+
+
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
+    -- vim.keymap.set('n', 'gu', require('telescope.builtin').lsp_references, { })
+    vim.keymap.set('n', 'gi', require('telescope.builtin').lsp_implementations, { })
+    vim.keymap.set('n', 'gd', require('telescope.builtin').lsp_definitions, { })
+    vim.keymap.set('n', 'gu', function()
+      require('telescope.builtin').lsp_references({
+          context = { includeDeclaration = false } -- Do not include declaration in the references
+        })
+    end, { silent = true })
+  end,
+})

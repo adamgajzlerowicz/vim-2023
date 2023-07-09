@@ -189,14 +189,7 @@ vim.g.goyo_height = '100%'
 vim.cmd('autocmd TermClose * Goyo')
 
        
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(args)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
-    vim.keymap.set('n', 'gu', require('telescope.builtin').lsp_references, { })
-    vim.keymap.set('n', 'gi', require('telescope.builtin').lsp_implementations, { })
-    vim.keymap.set('n', 'gd', require('telescope.builtin').lsp_definitions, { })
-  end,
-})
+
 
 vim.api.nvim_set_keymap('n', 'n', 'nzz', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<ESC>', '<ESC>:cclose<cr>', {noremap = true, silent = true})
