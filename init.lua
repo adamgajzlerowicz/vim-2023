@@ -170,6 +170,8 @@ require("toggleterm").setup{
   end,
 }
 
+vim.api.nvim_set_keymap('n', '<C-t>', ':wa<CR>:ToggleTerm<CR>', {noremap = true, silent = true})
+
 
 vim.cmd [[
   autocmd TermOpen * tnoremap <buffer> <Esc> <C-\><C-n>
@@ -185,10 +187,6 @@ vim.cmd [[
 vim.g.goyo_linenr = 1
 vim.g.goyo_width = 150
 vim.g.goyo_height = '100%'
-
-vim.cmd('autocmd TermClose * Goyo')
-
-       
 
 
 vim.api.nvim_set_keymap('n', 'n', 'nzz', {noremap = true, silent = true})

@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gd', require('telescope.builtin').lsp_definitions, { })
     vim.keymap.set('n', 'gu', function()
       require('telescope.builtin').lsp_references({
-          context = { includeDeclaration = false } -- Do not include declaration in the references
+           include_declaration = false, show_line = false, include_current_line = false 
         })
     end, { silent = true })
   end,
