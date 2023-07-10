@@ -31,7 +31,6 @@ require('packer').startup(function()
   use 'sbdchd/neoformat'
   use {'ms-jpq/chadtree', run = 'python3 -m chadtree deps'}
   use 'junegunn/goyo.vim'
-  use 'neovim/nvim-lspconfig'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
@@ -47,7 +46,6 @@ require('packer').startup(function()
   use 'ray-x/go.nvim'
   use 'ray-x/guihua.lua' -- recommended if need floating window support
   use 'neovim/nvim-lspconfig'
-  use 'nvim-treesitter/nvim-treesitter'
   use {'axkirillov/easypick.nvim', requires = 'nvim-telescope/telescope.nvim'}
   use 'jose-elias-alvarez/null-ls.nvim'
 end)
