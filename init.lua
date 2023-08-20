@@ -193,7 +193,7 @@ vim.api.nvim_set_keymap('n', '<ESC>', '<ESC>:cclose<cr>', {noremap = true, silen
 vim.api.nvim_set_keymap('n', '<ESC>', ':nohl<cr>', {noremap = true, silent = true})
 
 
--- Neoformat
+-- -- Neoformat
 
 vim.g.neoformat_try_node_exe = 1
 vim.g.neoformat_run_all_formatters = 1

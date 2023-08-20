@@ -1,7 +1,7 @@
 require'nvim-treesitter.configs'.setup {
- ensure_installed = 'typescript',
+ ensure_installed = { 'typescript', 'lua'},
   highlight = {
-    enable = true,
+    enable = false,
     custom_captures = { },
     additional_vim_regex_highlighting = false
   },
@@ -15,6 +15,6 @@ require'nvim-treesitter.configs'.setup {
     }
   },
   indent = {
-    enable = false
+    enable = true
   }
 }
