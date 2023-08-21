@@ -11,31 +11,30 @@ require('packer').startup(function()
   use 'gruvbox-community/gruvbox'
   use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
   use 'junegunn/fzf.vim'
-  use 'drmingdrmer/vim-toggle-quickfix'
   use 'airblade/vim-gitgutter'
   use 'editorconfig/editorconfig-vim'
-  use 'mhinz/vim-janah'
+  -- use 'mhinz/vim-janah'
   use 'ryanoasis/vim-devicons'
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
   use 'nvim-lua/plenary.nvim'
   use 'nvim-telescope/telescope.nvim'
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
-  use {'fatih/vim-go', run = ':GoUpdateBinaries' }
-  use 'jacoborus/tender.vim'
+  -- use {'fatih/vim-go', run = ':GoUpdateBinaries' }
+  -- use 'jacoborus/tender.vim'
   use 'nvim-telescope/telescope-project.nvim'
   use 'akinsho/toggleterm.nvim'
-  use 'joshdick/onedark.vim'
-  use 'sheerun/vim-polyglot'
-  use 'liuchengxu/vista.vim'
+  -- use 'joshdick/onedark.vim'
+  -- use 'sheerun/vim-polyglot'
+  -- use 'liuchengxu/vista.vim'
   use 'tpope/vim-commentary'
-  use 'sbdchd/neoformat'
+  -- use 'sbdchd/neoformat'
   use {'ms-jpq/chadtree', run = 'python3 -m chadtree deps'}
   use 'junegunn/goyo.vim'
   use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
+  -- use 'hrsh7th/cmp-buffer'
+  -- use 'hrsh7th/cmp-path'
+  -- use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/vim-vsnip'
@@ -44,8 +43,8 @@ require('packer').startup(function()
   use 'github/copilot.vim'
   use 'williamboman/mason.nvim'
   use 'NLKNguyen/papercolor-theme'
-  use 'ray-x/go.nvim'
-  use 'ray-x/guihua.lua' -- recommended if need floating window support
+  -- use 'ray-x/go.nvim'
+  -- use 'ray-x/guihua.lua' -- recommended if need floating window support
   use 'neovim/nvim-lspconfig'
   use {'axkirillov/easypick.nvim', requires = 'nvim-telescope/telescope.nvim'}
   use 'jose-elias-alvarez/null-ls.nvim'
@@ -88,7 +87,6 @@ vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<space>jj', ':Goyo <cr>', {noremap = true})
 
 
-require'lspconfig'.gopls.setup{}
 
 
 
@@ -217,18 +215,5 @@ vim.api.nvim_set_var("chadtree_settings", chadtree_settings)
 
 
 
-
-
--- Go
-local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-   require('go.format').goimport()
-  end,
-  group = format_sync_grp,
-})
-
-require('go').setup()
 
 

@@ -1,4 +1,4 @@
--- require("rawdikk.cmp")
+require("rawdikk.cmp")
 require("rawdikk.search")
 require("rawdikk.easypick")
 require("rawdikk.telescope")
