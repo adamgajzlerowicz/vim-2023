@@ -6,6 +6,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 require('packer').startup(function()
+  use 'wbthomason/packer.nvim'
   use 'mhinz/vim-startify'
   use 'gruvbox-community/gruvbox'
   use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
@@ -50,7 +51,9 @@ require('packer').startup(function()
   use 'jose-elias-alvarez/null-ls.nvim'
 end)
 
+
 require("rawdikk")
+
 
 require("mason").setup()
 
