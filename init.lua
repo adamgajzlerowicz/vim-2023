@@ -9,12 +9,10 @@ require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   use 'mhinz/vim-startify'
   use 'gruvbox-community/gruvbox'
-  use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
-  use 'junegunn/fzf.vim'
   use 'airblade/vim-gitgutter'
   use 'editorconfig/editorconfig-vim'
   -- use 'mhinz/vim-janah'
-  use 'ryanoasis/vim-devicons'
+  use 'nvim-tree/nvim-web-devicons'
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
   use 'nvim-lua/plenary.nvim'
   use 'nvim-telescope/telescope.nvim'
@@ -48,6 +46,7 @@ require('packer').startup(function()
   use 'neovim/nvim-lspconfig'
   use {'axkirillov/easypick.nvim', requires = 'nvim-telescope/telescope.nvim'}
   use 'jose-elias-alvarez/null-ls.nvim'
+  use "ibhagwan/fzf-lua"
 end)
 
 
@@ -55,6 +54,13 @@ require("rawdikk")
 
 
 require("mason").setup()
+
+require('fzf-lua').setup {
+  fzf_opts = {['--layout'] = 'reverse-list'},
+  winopts = {
+    layout = 'reverse'
+  }
+}
 
 vim.cmd [[
   set encoding=UTF-8
