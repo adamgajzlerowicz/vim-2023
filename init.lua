@@ -11,28 +11,22 @@ require('packer').startup(function()
   use 'gruvbox-community/gruvbox'
   use 'airblade/vim-gitgutter'
   use 'editorconfig/editorconfig-vim'
-  -- use 'mhinz/vim-janah'
   use 'nvim-tree/nvim-web-devicons'
+  use 'nvim-tree/nvim-tree.lua'
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
   use 'nvim-lua/plenary.nvim'
   use 'nvim-telescope/telescope.nvim'
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
-  -- use {'fatih/vim-go', run = ':GoUpdateBinaries' }
-  -- use 'jacoborus/tender.vim'
   use 'nvim-telescope/telescope-project.nvim'
   use 'akinsho/toggleterm.nvim'
-  -- use 'joshdick/onedark.vim'
-  -- use 'sheerun/vim-polyglot'
-  -- use 'liuchengxu/vista.vim'
   use 'tpope/vim-commentary'
-  -- use 'sbdchd/neoformat'
+  use 'sbdchd/neoformat'
   use {'ms-jpq/chadtree', run = 'python3 -m chadtree deps'}
   use 'junegunn/goyo.vim'
   use 'hrsh7th/cmp-nvim-lsp'
-  -- use 'hrsh7th/cmp-buffer'
-  -- use 'hrsh7th/cmp-path'
-  -- use 'hrsh7th/cmp-cmdline'
+  use 'neovim/nvim-lspconfig'
+  use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/vim-vsnip'
@@ -41,9 +35,7 @@ require('packer').startup(function()
   use 'github/copilot.vim'
   use 'williamboman/mason.nvim'
   use 'NLKNguyen/papercolor-theme'
-  -- use 'ray-x/go.nvim'
-  -- use 'ray-x/guihua.lua' -- recommended if need floating window support
-  use 'neovim/nvim-lspconfig'
+  -- use 'dense-analysis/ale'
   use {'axkirillov/easypick.nvim', requires = 'nvim-telescope/telescope.nvim'}
   use 'jose-elias-alvarez/null-ls.nvim'
   use "ibhagwan/fzf-lua"
@@ -51,6 +43,20 @@ end)
 
 
 require("rawdikk")
+
+-- vim.g.ale_linters = {javascript = {'eslint', 'prettier'}, typescript = {'eslint'}, typescriptreact = {'eslint'}}
+-- vim.g.ale_fixers = {javascript = {'eslint', 'prettier'}, typescript = {'prettier'}, typescriptreact = {'prettier'}}
+-- vim.g.ale_javascript_eslint_executable = 'eslint_d'
+-- vim.g.ale_fix_on_save = 1
+
+vim.g.neoformat_try_node_exe = 1
+vim.g.neoformat_run_all_formatters = 1
+vim.g.neoformat_enabled_javascript = {'eslint_d'}
+vim.g.neoformat_javascript_eslint_d = {
+  exe = 'eslint_d',
+  args = {'--fix'},
+  stdin = true
+}
 
 
 require("mason").setup()
@@ -94,17 +100,14 @@ vim.api.nvim_set_keymap('n', '<space>jj', ':Goyo <cr>', {noremap = true})
 
 
 
-
-
-
 -- mappings
 vim.api.nvim_set_keymap('n', '<space>ff', '<cmd>Telescope live_grep<cr>', {})
 vim.api.nvim_set_keymap('n', '<space>ko', '<cmd>Startify<cr>', {})
-vim.api.nvim_set_keymap('n', '<Tab><Tab>', '<cmd>Telescope buffers<cr>', {})
+vim.api.nvim_set_keymap('n', '<Tab>', '<cmd>Telescope buffers<cr>', {})
 vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Telescope find_files<CR>', {})
 vim.api.nvim_set_keymap('n', '<space>l', ':wall<cr>', {})
-vim.api.nvim_set_keymap('n', '<S-Tab>', ':CHADopen --always-focus <cr>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'gs', '<plug>(lsp-workspace-symbol-search)', {})
+vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.buf.rename()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '<space>y', '"+y', {})
 
 
@@ -186,7 +189,7 @@ vim.cmd [[
 vim.cmd [[
   augroup AutoReload
   autocmd!
-  autocmd BufWritePost ~/.config/nvim/init.lua source %
+  autocmd BufWritePost ~/.config/nvim/init.lua silent source %
   augroup END
 ]]
 
@@ -200,20 +203,6 @@ vim.api.nvim_set_keymap('n', '<ESC>', '<ESC>:cclose<cr>', {noremap = true, silen
 vim.api.nvim_set_keymap('n', '<ESC>', ':nohl<cr>', {noremap = true, silent = true})
 
 
--- -- Neoformat
-
-vim.g.neoformat_try_node_exe = 1
-vim.g.neoformat_run_all_formatters = 1
-
-
-vim.cmd([[
-  augroup fmt
-    autocmd!
-    autocmd BufWritePre * undojoin | Neoformat
-  augroup END
-]])
-
-vim.g.neoformat_enabled_typescript = {'eslint_d'}
 
 local chadtree_settings = { ["options.close_on_open"] = true }
 vim.api.nvim_set_var("chadtree_settings", chadtree_settings)
