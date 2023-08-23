@@ -18,6 +18,10 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+  nodePackages_latest.firebase-tools
+  gnomeExtensions.settingscenter
+  pkgs.gnome3.gnome-tweaks
+
 	alsa-utils
 	autoconf
 	automake
@@ -100,6 +104,7 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+
 
   # Configure keymap in X11
   services.xserver = {
