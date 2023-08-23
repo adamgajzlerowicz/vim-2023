@@ -1,0 +1,15 @@
+{
+  "tsserver": {
+    "enable": true,
+    "lintOnSave": true,
+    "filetypes": ["typescript", "typescriptreact", "javascript", "javascriptreact"]
+  },
+  "eslint": {
+    "enable": true,
+    "run": "onSave",
+    "autoFixOnSave": true,
+    "packageManager": "yarn",
+    "filetypes": ["typescript", "typescriptreact", "javascript", "javascriptreact"]
+  }
+}
+

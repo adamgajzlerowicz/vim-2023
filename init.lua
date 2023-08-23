@@ -21,7 +21,6 @@ require('packer').startup(function()
   use 'nvim-telescope/telescope-project.nvim'
   use 'akinsho/toggleterm.nvim'
   use 'tpope/vim-commentary'
-  use 'sbdchd/neoformat'
   use {'ms-jpq/chadtree', run = 'python3 -m chadtree deps'}
   use 'junegunn/goyo.vim'
   use 'hrsh7th/cmp-nvim-lsp'
@@ -35,28 +34,15 @@ require('packer').startup(function()
   use 'github/copilot.vim'
   use 'williamboman/mason.nvim'
   use 'NLKNguyen/papercolor-theme'
-  -- use 'dense-analysis/ale'
   use {'axkirillov/easypick.nvim', requires = 'nvim-telescope/telescope.nvim'}
-  use 'jose-elias-alvarez/null-ls.nvim'
   use "ibhagwan/fzf-lua"
+  use {"neoclide/coc.nvim", run = "yarn install --frozen-lockfile"}
+  use 'neoclide/coc-eslint'
 end)
 
 
 require("rawdikk")
 
--- vim.g.ale_linters = {javascript = {'eslint', 'prettier'}, typescript = {'eslint'}, typescriptreact = {'eslint'}}
--- vim.g.ale_fixers = {javascript = {'eslint', 'prettier'}, typescript = {'prettier'}, typescriptreact = {'prettier'}}
--- vim.g.ale_javascript_eslint_executable = 'eslint_d'
--- vim.g.ale_fix_on_save = 1
-
-vim.g.neoformat_try_node_exe = 1
-vim.g.neoformat_run_all_formatters = 1
-vim.g.neoformat_enabled_javascript = {'eslint_d'}
-vim.g.neoformat_javascript_eslint_d = {
-  exe = 'eslint_d',
-  args = {'--fix'},
-  stdin = true
-}
 
 
 require("mason").setup()
@@ -105,10 +91,16 @@ vim.api.nvim_set_keymap('n', '<space>ff', '<cmd>Telescope live_grep<cr>', {})
 vim.api.nvim_set_keymap('n', '<space>ko', '<cmd>Startify<cr>', {})
 vim.api.nvim_set_keymap('n', '<Tab>', '<cmd>Telescope buffers<cr>', {})
 vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Telescope find_files<CR>', {})
-vim.api.nvim_set_keymap('n', '<space>l', ':wall<cr>', {})
+--vim.api.nvim_set_keymap('n', '<space>l', ':wall<cr>', {})
 vim.api.nvim_set_keymap('n', 'gs', '<plug>(lsp-workspace-symbol-search)', {})
 vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.buf.rename()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '<space>y', '"+y', {})
+
+function eslint_autofix()
+  vim.cmd(':wall')
+  vim.cmd(':CocCommand eslint.executeAutofix')
+end
+vim.api.nvim_set_keymap('n', '<space>l', ':lua eslint_autofix()<CR>', {})
 
 
 -- global variables
@@ -204,8 +196,6 @@ vim.api.nvim_set_keymap('n', '<ESC>', ':nohl<cr>', {noremap = true, silent = tru
 
 
 
-local chadtree_settings = { ["options.close_on_open"] = true }
-vim.api.nvim_set_var("chadtree_settings", chadtree_settings)
 
 
 
