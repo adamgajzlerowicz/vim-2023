@@ -14,14 +14,15 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  virtualisation.docker.enable = true;
+
   
-  # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   nodePackages_latest.firebase-tools
   gnomeExtensions.settingscenter
   pkgs.gnome3.gnome-tweaks
-
 	alsa-utils
 	autoconf
 	automake
@@ -58,6 +59,9 @@
 	python3Packages.setuptools
 	sublime-merge-dev
 	picom
+  hackgen-nf-font
+
+
 
   ];
 
@@ -142,10 +146,24 @@
   users.users.adam = {
     isNormalUser = true;
     description = "adam";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
     packages = with pkgs; [
     ];
   };
+
+  fonts.fonts = with pkgs; [
+    hack-font
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    dina-font
+    proggyfonts
+    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+  ];
 
 
   # Some programs need SUID wrappers, can be configured further or are
