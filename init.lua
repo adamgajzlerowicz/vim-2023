@@ -63,6 +63,7 @@ vim.cmd [[
   set number
   set nobackup
   set nospell
+  set termguicolors
   set nowritebackup
   set smarttab
   set nocompatible
@@ -77,8 +78,11 @@ vim.cmd [[
   set nowrap
   syntax enable
   set autowriteall
-  set background=light
+  set background=dark
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  let g:coc_default_semantic_highlight_groups = 1
 ]]
+
 
 
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
@@ -87,11 +91,10 @@ vim.api.nvim_set_keymap('n', '<space>jj', ':Goyo <cr>', {noremap = true})
 
 
 -- mappings
-vim.api.nvim_set_keymap('n', '<space>ff', '<cmd>Telescope live_grep<cr>', {})
+vim.api.nvim_set_keymap('n', '<space>f', '<cmd>Telescope live_grep<cr>', {})
 vim.api.nvim_set_keymap('n', '<space>ko', '<cmd>Startify<cr>', {})
 vim.api.nvim_set_keymap('n', '<Tab>', '<cmd>Telescope buffers<cr>', {})
 vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Telescope find_files<CR>', {})
---vim.api.nvim_set_keymap('n', '<space>l', ':wall<cr>', {})
 vim.api.nvim_set_keymap('n', 'gs', '<plug>(lsp-workspace-symbol-search)', {})
 vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.buf.rename()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '<space>y', '"+y', {})

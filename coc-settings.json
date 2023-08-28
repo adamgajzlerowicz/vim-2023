@@ -1,4 +1,6 @@
 {
+  "colors.enable": true,
+  "coc.source.highlight.enable": true,
   "suggest.autoTrigger": "none",
   "tsserver": {
     "enable": true,
