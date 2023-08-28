@@ -38,6 +38,7 @@ require('packer').startup(function()
   use "ibhagwan/fzf-lua"
   use {"neoclide/coc.nvim", run = "yarn install --frozen-lockfile"}
   use 'neoclide/coc-eslint'
+  use 'rrethy/vim-illuminate'
 end)
 
 
@@ -82,7 +83,6 @@ vim.cmd [[
   autocmd CursorHold * silent call CocActionAsync('highlight')
   let g:coc_default_semantic_highlight_groups = 1
 ]]
-
 
 
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
