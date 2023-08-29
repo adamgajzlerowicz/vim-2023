@@ -42,7 +42,6 @@ require('packer').startup(function()
 end)
 
 
-require("rawdikk")
 
 
 
@@ -201,6 +200,7 @@ vim.api.nvim_set_keymap('n', '<ESC>', ':nohl<cr>', {noremap = true, silent = tru
 
 
 
+require("rawdikk")
 
 
 
