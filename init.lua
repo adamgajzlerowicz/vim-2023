@@ -128,11 +128,14 @@ vim.api.nvim_set_keymap('n', 'gs', '<plug>(lsp-workspace-symbol-search)', {})
 vim.api.nvim_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', {})
 vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.buf.rename()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '<space>y', '"+y', {})
-vim.api.nvim_set_keymap('n', 's', '<cmd>HopChar1<cr>', {})
+vim.api.nvim_set_keymap('n', 'f', '<cmd>HopChar1<cr>', {})
+
+
+-- autofix eslint
+vim.cmd([[ autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx CocCommand eslint.executeAutofix ]])
 
 function eslint_autofix()
   vim.cmd(':wall')
-  vim.cmd(':CocCommand eslint.executeAutofix')
 end
 vim.api.nvim_set_keymap('n', '<space>l', ':lua eslint_autofix()<CR>', {})
 
