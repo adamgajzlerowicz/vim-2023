@@ -13,6 +13,10 @@
     "autoFixOnSave": true,
     "packageManager": "yarn",
     "filetypes": ["typescript", "typescriptreact", "javascript", "javascriptreact"]
+  },
+  "coc-prettier": {
+    "enable": true,
+    "filetypes": ["typescript", "javascript", "typescriptreact"]
   }
 }
 

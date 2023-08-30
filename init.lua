@@ -39,6 +39,7 @@ require('packer').startup(function()
   use {"neoclide/coc.nvim", run = "yarn install --frozen-lockfile"}
   use 'neoclide/coc-eslint'
   use 'rrethy/vim-illuminate'
+  use 'ggandor/leap.nvim'
 end)
 
 
@@ -197,7 +198,7 @@ vim.api.nvim_set_keymap('n', '<ESC>', '<ESC>:cclose<cr>', {noremap = true, silen
 vim.api.nvim_set_keymap('n', '<ESC>', ':nohl<cr>', {noremap = true, silent = true})
 
 
-
+require('leap').add_default_mappings()
 
 
 require("rawdikk")
