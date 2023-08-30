@@ -40,9 +40,17 @@ require('packer').startup(function()
   use 'neoclide/coc-eslint'
   use 'rrethy/vim-illuminate'
   use 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git'
-  use 'phaazon/hop.nvim'
-  use 'ggandor/leap.nvim'
+  use {
+    'phaazon/hop.nvim',
+    branch = 'v2', 
+    config = function()
+      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+    end
+  }
 end)
+
+
+require'hop'.setup()
 
 local rainbow_delimiters = require 'rainbow-delimiters'
 
@@ -56,7 +64,7 @@ vim.g.rainbow_delimiters = {
         lua = 'rainbow-blocks',
     },
     highlight = {
-        'RainbowDelimiterRed',
+        -- 'RainbowDelimiterRed',
         'RainbowDelimiterYellow',
         'RainbowDelimiterBlue',
         'RainbowDelimiterOrange',
@@ -65,9 +73,6 @@ vim.g.rainbow_delimiters = {
         'RainbowDelimiterCyan',
     },
 }
-
-
-
 
 
 require("mason").setup()
@@ -114,9 +119,7 @@ vim.api.nvim_set_keymap('n', '<space>jj', ':Goyo <cr>', {noremap = true})
 
 
 
-local bufopts = { noremap=true, silent=true, buffer=bufnr }
 -- mappings
-
 vim.api.nvim_set_keymap('n', '<space>f', '<cmd>Telescope live_grep<cr>', {})
 vim.api.nvim_set_keymap('n', '<space>ko', '<cmd>Startify<cr>', {})
 vim.api.nvim_set_keymap('n', '<Tab>', '<cmd>Telescope buffers<cr>', {})
@@ -125,6 +128,7 @@ vim.api.nvim_set_keymap('n', 'gs', '<plug>(lsp-workspace-symbol-search)', {})
 vim.api.nvim_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', {})
 vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.buf.rename()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '<space>y', '"+y', {})
+vim.api.nvim_set_keymap('n', 's', '<cmd>HopChar1<cr>', {})
 
 function eslint_autofix()
   vim.cmd(':wall')
@@ -165,7 +169,6 @@ vim.g.startify_change_to_vcs_root = 1
 vim.g.startify_enable_special = 0
 vim.g.startify_session_dir = '~/.config/nvim/session'
 
--- Saving scroll
 vim.cmd [[
 function! Saving_scroll(cmd)
   let save_scroll = &scroll
@@ -186,6 +189,7 @@ vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {noremap = true})
+
 
 
 require("toggleterm").setup{
@@ -225,7 +229,6 @@ vim.api.nvim_set_keymap('n', '<ESC>', '<ESC>:cclose<cr>', {noremap = true, silen
 vim.api.nvim_set_keymap('n', '<ESC>', ':nohl<cr>', {noremap = true, silent = true})
 
 
-require('leap').add_default_mappings()
 
 require'lspconfig'.gopls.setup{
   on_attach = function(client, bufnr)
