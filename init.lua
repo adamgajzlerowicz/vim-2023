@@ -39,8 +39,32 @@ require('packer').startup(function()
   use {"neoclide/coc.nvim", run = "yarn install --frozen-lockfile"}
   use 'neoclide/coc-eslint'
   use 'rrethy/vim-illuminate'
+  use 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git'
+  use 'phaazon/hop.nvim'
   use 'ggandor/leap.nvim'
 end)
+
+local rainbow_delimiters = require 'rainbow-delimiters'
+
+vim.g.rainbow_delimiters = {
+    strategy = {
+        [''] = rainbow_delimiters.strategy['global'],
+        vim = rainbow_delimiters.strategy['local'],
+    },
+    query = {
+        [''] = 'rainbow-delimiters',
+        lua = 'rainbow-blocks',
+    },
+    highlight = {
+        'RainbowDelimiterRed',
+        'RainbowDelimiterYellow',
+        'RainbowDelimiterBlue',
+        'RainbowDelimiterOrange',
+        'RainbowDelimiterGreen',
+        'RainbowDelimiterViolet',
+        'RainbowDelimiterCyan',
+    },
+}
 
 
 
@@ -90,12 +114,15 @@ vim.api.nvim_set_keymap('n', '<space>jj', ':Goyo <cr>', {noremap = true})
 
 
 
+local bufopts = { noremap=true, silent=true, buffer=bufnr }
 -- mappings
+
 vim.api.nvim_set_keymap('n', '<space>f', '<cmd>Telescope live_grep<cr>', {})
 vim.api.nvim_set_keymap('n', '<space>ko', '<cmd>Startify<cr>', {})
 vim.api.nvim_set_keymap('n', '<Tab>', '<cmd>Telescope buffers<cr>', {})
 vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Telescope find_files<CR>', {})
 vim.api.nvim_set_keymap('n', 'gs', '<plug>(lsp-workspace-symbol-search)', {})
+vim.api.nvim_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', {})
 vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.buf.rename()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '<space>y', '"+y', {})
 
@@ -199,6 +226,17 @@ vim.api.nvim_set_keymap('n', '<ESC>', ':nohl<cr>', {noremap = true, silent = tru
 
 
 require('leap').add_default_mappings()
+
+require'lspconfig'.gopls.setup{
+  on_attach = function(client, bufnr)
+    client.resolved_capabilities.document_formatting = true
+  end,
+}
+
+
+vim.cmd [[
+  autocmd BufWritePre *.go :lua vim.lsp.buf_request(0, "textDocument/formatting", { textDocument = { uri = vim.uri_from_bufnr(0) } }, nil)
+]]
 
 
 require("rawdikk")
