@@ -6,6 +6,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 require('packer').startup(function()
+  use 'Mofiqul/vscode.nvim'
   use 'wbthomason/packer.nvim'
   use 'mhinz/vim-startify'
   use 'gruvbox-community/gruvbox'
@@ -247,7 +248,6 @@ vim.cmd [[
 
 
 require("rawdikk")
-
 
 
 
