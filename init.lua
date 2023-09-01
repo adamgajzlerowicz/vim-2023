@@ -78,9 +78,10 @@ vim.g.rainbow_delimiters = {
 require("mason").setup()
 
 require('fzf-lua').setup {
-  fzf_opts = {['--layout'] = 'reverse-list'},
-  winopts = {
-    layout = 'reverse'
+  buffers = {
+    sorter = function (a,b) 
+      return a.time > b.time
+    end
   }
 }
 
@@ -122,7 +123,7 @@ vim.api.nvim_set_keymap('n', '<space>jj', ':Goyo <cr>', {noremap = true})
 -- mappings
 vim.api.nvim_set_keymap('n', '<space>f', '<cmd>Telescope live_grep<cr>', {})
 vim.api.nvim_set_keymap('n', '<space>ko', '<cmd>Startify<cr>', {})
-vim.api.nvim_set_keymap('n', '<Tab>', '<cmd>Telescope buffers<cr>', {})
+vim.api.nvim_set_keymap('n', '<Tab>', '<cmd>FzfLua buffers<cr>', {})
 vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Telescope find_files<CR>', {})
 vim.api.nvim_set_keymap('n', 'gs', '<plug>(lsp-workspace-symbol-search)', {})
 vim.api.nvim_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', {})
